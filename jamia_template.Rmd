@@ -1,0 +1,139 @@
+---
+title: "Template for JAMIA manuscript using Rmarkdown"
+author:
+- One^1^, Two^2^
+- ^1^ affiliation 1
+- ^2^ affiliation 2
+bibliography: biblio.bib
+csl: jamia.csl
+output:
+  word_document:
+    reference_docx: jamia_template_02.docx
+---
+
+```{r load_packages, echo = F, message=F, warning=F}
+
+if (!require(pacman)) install.packages('pacman')
+library(pacman)
+p_load(captioner, pander)
+```
+
+```{r setup_references}
+table_nums <- captioner::captioner(prefix = "Table")
+table.ref <- function(x) {
+  stringr::str_extract(table_nums(x), "[^:]*")
+}
+
+figure_nums <- captioner::captioner(prefix = "Figure")
+figure.ref <- function(x) {
+  stringr::str_extract(figure_nums(x), "[^:]*")
+}
+```
+
+## Corresponding Author: 
+Full name
+postal address
+e-mail 
+telephone number.
+
+## Keywords 
+Up to five keywords or phrases suitable for use in an index (it is recommended to use MeSH terms).
+
+## Word count
+excluding title page, abstract, references, figures and tables.
+
+##### _ 
+
+# Abstract
+
+## Objective
+
+## Background and Significance
+
+## Materials and Methods
+
+## Results
+
+## Discussion
+
+## Conclusion
+
+##### _
+
+# Objective
+
+cite [@miotto2016], cite [@ye2015]
+
+## Subsection: level 2 title `##`
+
+### Subsubsection: level 3 title `###`
+
+#### Subsubsubsection: level 4 title `####`
+
+one can create page breaks using the level 5 titles: `#####`
+
+# Background and Significance
+
+# Materials and Methods
+
+# Results
+
+```{r define_fig_cap , echo = F,results='hide'}
+figure_nums(name = "fig_1", 
+                        caption = "This is figure fig_1 caption")
+figure_nums(name = "fig_2", 
+                        caption = "This is figure fig_2 caption")
+```
+
+```{r define_tab1, echo = F, results='hide'}
+table_nums(name = "tab_1", 
+                        caption = "This is table tab_1 caption")
+```
+
+to reference a table number in text use `table.ref('tab_1')`
+see results in `r table.ref('tab_1')`.
+
+| Fruit         | Price         | Advantages         |
+|:-------------:|:-------------:|--------------------|
+| Bananas       | $1.34         | - built-in wrapper |
+|               |               | - bright color     |
+|---------------|---------------|--------------------|
+| Oranges       | $2.10         | - cures scurvy     |
+|               |               | - tasty            |
+
+`r table_nums('tab_1')`
+
+to print the table caption with the table number use: `table_nums('tab_1')`
+
+![`r figure_nums('fig_1')`](figures/normal-distribution.png)
+
+
+```{r define_tab2, echo = F, results = 'hide'}
+table_nums(name = "tab_2", 
+                        caption = "This is table tab_2 caption")
+```
+
+```{r table_2, echo = F}
+tab <- data.frame(col1 = 1:5, col2 = 1:5)
+pander(tab)
+```
+`r table_nums('tab_2')`
+
+# Discussion
+
+# Conclusion
+
+# Acknowledgments
+
+# Competing Interests
+
+# Funding
+
+# Figure legends
+
+`r figure_nums('fig_1')`
+
+`r figure_nums('fig_2')`
+
+# References
+
